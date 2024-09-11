@@ -60,14 +60,14 @@ public class ForwardTestController {
 	// 4) 매개 변수는 필요한 만큼 마음대로
 	// -> Arguments Resolver 참조
 	
-	// 5) 매펭할 요청 주소를 @RequestMapping 등을 이용해 작성
+	// 5) 매핑할 요청 주소를 @RequestMapping 등을 이용해 작성
 	
 	/* Spring Boot Controller에서
 	 * 특수한 경우를 제외하고
 	 * 매핑 주소 제일 앞에 "/"를 적지 않는다!!
 	 *  */
 	
-	@RequestMapping("forward") // /forward 요처 매핑 (GET/POST 가리지 않음)
+	@RequestMapping("forward") // /forward 요청 매핑 (GET/POST 가리지 않음)
 	public String forwardTest() {
 		
 		System.out.println("/forward 매핑 됐는지 확인");
