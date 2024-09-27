@@ -41,6 +41,16 @@ public interface MyPageMapper {
 	 * @return
 	 */
 	int secession(int memberNo);
+
+	
+	/** 프사 변경
+	 * @param url
+	 * @param memberNo
+	 * @return result
+	 */
+	int profile(
+				@Param("url")  String url, 
+				@Param("memberNo")  int memberNo);
 	
 	/* 마이바티스 Mapper 인터페이스 메서드 호출 시
 	 * 별도의 어노테이션이 없다면

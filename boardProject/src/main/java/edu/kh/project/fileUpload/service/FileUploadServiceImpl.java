@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.project.common.exception.FileUploadFailException;
+import edu.kh.project.common.util.FileUtil;
 import edu.kh.project.fileUpload.dto.FileDto;
 import edu.kh.project.fileUpload.mapper.FileUploadMapper;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +34,11 @@ public class FileUploadServiceImpl implements FileUploadService {
 
 	private final FileUploadMapper mapper;
 	
+//인터넷 요청 주소  (/images/test/)
 	@Value("${my.test.web-path}")
 	private String testWebPath; 
 	
+//파일 저장 폴더 경로 (C:/uploadFiles/test/)
 	@Value("${my.test.folder-path}")
 	private String testFolderPath;
 	
@@ -71,10 +75,14 @@ public class FileUploadServiceImpl implements FileUploadService {
 		 *    -> @Transaactional 어노테이션 Rollback 수행
 		 *     -> INSERT 취소
 		 * */
+		
+		/* 원본 파일명을 중복되지 않는 이름으로 변경 */
+		String rename = FileUtil.rename(uploadFile.getOriginalFilename());
+		
 		// FileDTO 객체를 만들어 INSERT 필요한 정보를 set
 		FileDto file = FileDto.builder()
 									.fileOriginalName(uploadFile.getOriginalFilename())
-									.fileRename(uploadFile.getOriginalFilename()) // 임시
+									.fileRename(rename) // 임시
 									.filePath(testWebPath)
 									.build();
 		int result = mapper.fileInsert(file);
@@ -83,10 +91,10 @@ public class FileUploadServiceImpl implements FileUploadService {
 		// 업로드 되어 메모리 또는 임시 저장 폴더에 저장된 파일을
 		// 지정된 경로(path)로 전달하는 코드
 		uploadFile.transferTo(
-				new File(testFolderPath + uploadFile.getOriginalFilename()) );
+				new File(testFolderPath + rename) );
 			
 		// 웹에서 접근 가능한 파일 경로(URL) 반환
-		return testWebPath + uploadFile.getOriginalFilename();
+		return testWebPath + rename;
 	}
 
 	// 파일 업로드
@@ -95,6 +103,112 @@ public class FileUploadServiceImpl implements FileUploadService {
 		
 		return mapper.selectFileList();
 	}
+	
+	// 업로드된 파일의 원본명을 fileName으로 변환해서 저장
+	@Override
+	public String test2(MultipartFile uploadFile, String fileName) throws IllegalStateException, IOException {
+		
+		// 1) 업로드된 파일이 있는지 검사
+		if(uploadFile.isEmpty()) {
+			return null; // 업로드된 파일이 없다면 null 반환
+		}
+		
+		// 2) 제출된 fileName이 없다면 기존 파일명 유지
+		
+		// 확장자 추출
+		int index = uploadFile.getOriginalFilename().lastIndexOf(".");
+		String ext = uploadFile.getOriginalFilename().substring(index);
+		
+		String originalName = 
+				fileName.equals("") 
+				? uploadFile.getOriginalFilename()
+				: fileName + ext; // 입력된파일명.확장자
+		
+		// 3) 파일명 변경하기
+		String rename = FileUtil.rename(originalName);
+		
+		// 4) DB에 파일 정보부터 INSERT
+		FileDto file =
+					 FileDto.builder()
+					.fileOriginalName(originalName) // 원본명
+					.fileRename(rename) // 변경명
+					.filePath(testWebPath) // 웹 접근 주소
+					.build();
+		
+		int result = mapper.fileInsert(file);
+
+		// 5) 지정된 폴더로 임시저장된 업로드 파일을 옮기기
+		uploadFile.transferTo(
+				new File(testFolderPath + rename));
+		
+		return testWebPath + rename;
+	}
+	
+	// 단일 파일업로드 + 사용자 정의 예외를 이용한 에외 처리
+	@Override
+	public String test3(MultipartFile uploadFile) {
+	
+		// 1) 업로드된 파일이 있는지 검사
+		if(uploadFile.isEmpty()) return null;
+		
+		// 2) 파일명 변경하기
+		String rename = FileUtil.rename(uploadFile.getOriginalFilename());
+		
+		// 3) DB에 파일 정보부터 INSERT
+		FileDto file = 
+				FileDto.builder()
+				.fileOriginalName(uploadFile.getOriginalFilename())
+				.fileRename(rename)
+				.filePath(testWebPath)
+				.build();
+		
+		int result = mapper.fileInsert(file);
+		
+		try {
+			uploadFile.transferTo(new File(testFolderPath + rename));
+			
+			// 테스트
+			int a = 1;
+			if(a == 1) throw new RuntimeException();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			// transferTo()는 Checkes Exception을 던지기 때문에
+			
+			// 1) throws 또는 try-catch를 무조건 작성
+			
+			// 2) throws 작성 시 호출하는 메서드에서
+			//   추가 예외처리 코드를 작성해야되는 번거로움이 있음
+			
+			// 3) try-catch 작성 시
+			//   메서드 내부에서 예외가 처리되어
+			//   메서드 종료 시 예외가 던져지지 않아
+			//   @transctional이 rollback을 수행할 수 없게 된다.
+			
+			// [추천되는 해결 방법]
+			// - try-catch를 작성해서 Checked Exception을 처리
+			// - 호출하는 메서드에 throws 구문 작성 X
+			
+			// * Unchecked Exception 형태의 사용자 정의 예외 강제 발생
+			// - @transctional 어노테이션에 
+			//   rollbackFor 속성 작성안해도 롤백 처리 가능 
+			
+			// 예외 강제 발생
+			// - Unchecked Exception은 컴파일러가 자동으로 
+			//   throws 구문을 작성해줘서 예외발생 시 호출부로 던져지게됨
+			throw new FileUploadFailException();
+			
+		}
+			
+		return testWebPath + rename;
+	}
+		
+		
+		
+		
+		
+		
+		
 
 
 
