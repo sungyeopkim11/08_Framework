@@ -25,9 +25,7 @@ public class MemberController {
 	public String memberLogin(
 			@RequestParam("memberId") String memberId,
 			@RequestParam("memberPw") String memberPw,
-			RedirectAttributes ra,
-			Model model,
-			HttpServletResponse resp
+			RedirectAttributes ra
 			) {
 		
 //		log.debug(memberId);
