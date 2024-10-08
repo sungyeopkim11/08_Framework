@@ -88,9 +88,9 @@ public class EditBoardController {
 			message = "게시글 작성 실패";
 		
 		} else {
-//			path = "/board/" + boardCode + "/" + boardNo; // 상세 조회 주소
+			path = "/board/" + boardCode + "/" + boardNo; // 상세 조회 주소
 			
-			path = "/board/" + boardCode; // 목록 조회 주소 (임시)
+			//path = "/board/" + boardCode; // 목록 조회 주소 (임시)
 			message = "게시글이 작성되었습니다";
 		} 
 		

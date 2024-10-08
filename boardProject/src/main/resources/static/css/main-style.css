@@ -506,3 +506,10 @@ button {
 button:hover {
   background-color: #7b1fa2; /* 호버 시 어두운 보라색 */
 }
+
+/* 현재 보고 있는 게시판 */
+.current-board{
+  /*background-color: var(--main-color);*/
+  background-color: #9c27b0;
+  color: white;
+}
