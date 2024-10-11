@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- Mapper 인터페이스와 연결하는 방법 : namespace 속성 값으로 Mapper 인터페이스의 패키지명 + 인터페이명 작성 -->
+<mapper namespace="edu.kh.project.board.mapper.CommentMapper">
+  
+  
+	<!-- useGeneratedKeys="true" 
+		: DB에서
+	-->
+
+	<insert id="commentInsert"
+			parameterType="Comment"
+			useGeneratedKeys="true">
+
+
+		<selectKey order="BEFORE" resultType="_int"
+					keyProperty="commentNo">
+			SELECT SEQ_COMMENT_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO "COMMENT"
+		VALUES(
+			#{commentNo},
+			#{commentContent},
+			DEFAULT,
+			DEFAULT,
+			#{memberNo},
+			#{boardNo},
+			
+			<!-- 부모 댓글 -->
+			<if test="parentCommentNo == 0">
+				NULL
+			</if>
+			
+			<!-- 자식 댓글 -->
+			<if test="parentCommentNo != 0">
+				#{parentCommentNo}
+			</if>
+				
+		)
+		
+	</insert>
+	
+	<!-- 댓글 삭제(상태 값 변경) -->
+	<update id="commentDelete">
+		UPDATE "COMMENT"
+		SET
+			COMMENT_DEL_FL = 'Y'
+		WHERE 
+			COMMENT_NO = #{commentNo}
+		AND
+			MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 댓글 수정 -->
+	<update id="commentUpdate">
+		UPDATE "COMMENT"
+		SET
+			COMMENT_CONTENT = #{commentContent}
+		WHERE
+			COMMENT_NO = #{commentNo}
+		AND
+			MEMBER_NO = #{memberNo}
+	</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
