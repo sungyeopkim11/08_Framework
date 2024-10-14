@@ -43,7 +43,7 @@ public class BoardController {
 	 * @param boardCode : 게시판 종류 번호
 	 * @param cp : 현재 조회하려는 목록의 페이지 번호
 	 *             (필수 아님, 없으면 1)
-	 * @param model : forward 시 데이토ㅓ 전달하는 용도의 객체
+	 * @param model : forward 시 데이터 전달하는 용도의 객체
 	 */
 	@GetMapping("{boardCode:[0-9]+}")
 	public String selectBoardList(
@@ -58,7 +58,7 @@ public class BoardController {
 		//     Map으로 묶어서 반환 받을 예정
 		Map<String, Object> map = service.selectBoardList(boardCode, cp);
 		
-		// Map에 묶여있느느 값 풀어놓기
+		// Map에 묶여있는 값 풀어놓기
 		List<Board> boardList = (List<Board>)map.get("boardList");
 		Pagination pagination = (Pagination)map.get("pagination");
 		

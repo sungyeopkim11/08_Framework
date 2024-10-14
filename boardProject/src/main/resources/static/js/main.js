@@ -2,6 +2,7 @@
 function getCookie(key){
 
   // 1. cookie 전부 얻어오기(string)
+  // email = 777sy777; , email = 777sy777;
   const cookies = document.cookie; // "k=V;K=V;..."
   // console.log(cookies);
 
@@ -18,6 +19,7 @@ function getCookie(key){
     // -> "=" 기준으로 쪼개기(split)
     const temp = entry.split("="); // ["K", "V"]
 
+    // ["email", "777sy777"]
     cookieObj[temp[0]] = temp[1];
   }
 
