@@ -55,6 +55,13 @@ public interface BoardService {
 	 */
 	Map<String, Object> selectSearchList(int boardCode, int cp, Map<String, Object> paramMap);
 
+	
+	/** 현재 게시글이 속해있는 페이지 번호 조회 하는 서비스
+	 * @param paramMap : 요청 파라미터가 모두 담긴 Map
+	 * @return
+	 */
+	int getCurrentPage(Map<String, Object> paramMap);
+
 
 
 

@@ -38,7 +38,7 @@ pageNoList?.forEach( (item, index) => {
         pathname += "?cp=" + pagination.prevPage;
         break;
       case '>'  : // 다음 페이지
-       pathname += "?cp=" + pagination.nextpage;
+       pathname += "?cp=" + pagination.nextPage;
         break;
       case '>>' : // 마지막 페이지
        pathname += "?cp=" + pagination.maxPage;
