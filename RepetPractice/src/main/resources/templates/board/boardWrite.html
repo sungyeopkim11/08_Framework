@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="${contextPath}/resource/summerNote/summernote-lite.css">
+</head>
+<body>
+  <form action="/board/write" method="POST">
+    <textarea name="editBoard" id="summerNote"></textarea>
+  </form>
+
+  <script>
+    $('#summerNote').summerNote({
+      height: 300,
+      minHeight: null,
+      maxHeight: null,
+      focus: true,
+      lang: 'ko-KR'
+    });
+  </script>
+  
+  <script src="${contextPath}/resource/summerNote/summernote-lite.js"></script>
+  <script src="${contextPath}/resource/summerNote/summernote-ko-KR.js"></script>
+</body>
+</html>

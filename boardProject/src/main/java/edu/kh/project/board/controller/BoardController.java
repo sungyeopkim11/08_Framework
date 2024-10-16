@@ -56,8 +56,8 @@ public class BoardController {
 			@RequestParam Map<String, Object> paramMap
 			) {
 		
-<<<<<<< HEAD
-=======
+
+
 		// log.debug("paramMap : {}", paramMap);
 		
 		Map<String, Object> map = null;
@@ -78,7 +78,7 @@ public class BoardController {
 		
 		
 		
->>>>>>> fb0d019497f5bffa427d496b24ee6ed5fefd859a
+
 		// Map에 묶여있는 값 풀어놓기
 		List<Board> boardList = (List<Board>)map.get("boardList");
 		Pagination pagination = (Pagination)map.get("pagination");
