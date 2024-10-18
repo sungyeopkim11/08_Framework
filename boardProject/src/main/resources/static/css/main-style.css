@@ -229,16 +229,16 @@ input[name="memberEmail"]{
 /* 로그인 버튼 */
 .id-pw-area > section:last-of-type > button{
   width: 100%;
-  background-color: white;
+  background-color: rgb(57, 190, 63);
   cursor: pointer;
   border: none;
   font-weight: bold;
 }
 
-.id-pw-area > section:last-of-type > button:hover{
+/* .id-pw-area > section:last-of-type > button:hover{
   color : white;
   background-color: var(--main-color);
-}
+} */
 
 
 /* 회원가입 / 찾기 */
