@@ -7,4 +7,17 @@
 <script src="https://kit.fontawesome.com/3f8db10d4e.js" crossorigin="anonymous"></script>
 
 <!-- <i class="fa-brands fa-instagram"></i> -->
+
+<!-- 알림 관련 전역 변수 -->
+<script th:inline="javascript">
+
+  // 현재 접속한 클라이언트가 로그인 상태인지 확인하는 변수
+  // -> 알림은 로그인한 회원만 받을 수 있다.
+  const notificationLoginCheck = /*[[${session.loginMember} ? true : false]]*/ false;
+
+  // 알림을 보낸 회원의 프로필 이미지가 없을 경우 사용할 기본 이미지
+  const notificationDefaultImage = /*[[#{user.default.image}]]*/ '기본 이미지';
+
+</script>
+
 <script src="/js/header.js"></script>
