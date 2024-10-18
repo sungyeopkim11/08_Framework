@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세화면</title>
+
+    <th:block th:replace="~{common/common}"></th:block>
+
+    <link rel="stylesheet" href="/css/board/boardDetail-style.css">
+    <link rel="stylesheet" href="/css/board/comment-style.css">
+
+</head>
+<body>
+
+    <main>
+        <th:block th:replace="~{common/header :: nav}"></th:block>
+
+        <section class="board-detail">
+            <h2 class="board-list">자유게시판</h2>
+            <br>
+            <h1 class="board-title">게시글 제목</h1>
+
+            <!-- 프로필 + 닉네임 + 작성일 -->
+             <div class="board-header">
+                <div class="board-writer">
+                    <!-- 프로필 이미지 -->
+                     <!-- 프로필 이미지가 없을 경우 기본 이미지 출력 -->
+                    <img src="/images/logo.jpg">
+
+                    <!-- 프로필 사진이 있을 경우 출력 -->
+                    <!-- <img src="/images/logo.jpg"> -->
+
+                    <!-- 작성자 닉네임 -->
+                    <span>샘플 1</span>
+
+                    <!-- 작성일 -->
+                    <span>2024년 10월 18일 20:18</span>
+
+                    <!-- 수정한 게시글인 경우 수정일 -->
+                     <span></span>
+
+                </div>
+
+                <div class="board-header-btn">
+                    <th:block>
+                        <button id="updateBtn">수정</button>
+                        <button id="deleteBtn">삭제</button>
+                    </th:block>
+
+                    <button id="goToListBtn">목록으로</button>
+                </div>
+             </div>
+
+             <th:block>
+                <h5>업로드 이미지</h5>
+
+                <th:block></th:block>
+                <img src="/images/logo.jpg">
+             </th:block>
+
+             <div class="board-content">내용</div>
+
+             <!-- 좋아요 하트 -->
+             <span class="like-area">
+
+                <!-- 좋아요 개수 -->
+                <span>0</span>
+             </span>
+
+        </section>
+
+        <!-- 댓글 영역 -->
+         <!-- <th:block th:replace="~{board/comment}"></th:block> -->
+
+
+         <!-- 베스트 게시글 -->
+          <div class="best-board-area">
+            <h2>추천 게시물</h2>
+
+            <div class="best-board-list">
+                <!-- 제목 -->
+                <a href="#">게시글 제목</a>
+
+                <!-- 댓글수 -->
+                 <th:block>[0]</th:block>
+                
+                <!-- 작성지 -->
+                 <td>닉네임</td>
+
+                <!-- 작성일 -->
+                <td>2024-10-18</td>
+
+            </div>
+          </div>
+
+
+
+    </main>
+
+    
+</body>
+</html>

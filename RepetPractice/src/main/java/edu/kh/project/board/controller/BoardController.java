@@ -2,12 +2,8 @@ package edu.kh.project.board.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-<<<<<<< HEAD
 
-=======
 import org.springframework.web.bind.annotation.PostMapping;
->>>>>>> cfcfca52c48a4558b2b27fd239ad7cd6a26e6446
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.kh.project.board.service.BoardService;
@@ -33,6 +29,11 @@ public class BoardController {
 	@PostMapping("write")
 	public String boardWrite() {
 		return "board/boardWrite";
+	}
+	
+	@GetMapping("detail")
+	public String boardDetail() {
+		return "board/boardDetail";
 	}
 
 

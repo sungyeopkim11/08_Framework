@@ -13,27 +13,16 @@ import lombok.ToString;
 
 @Getter
 @Setter
-<<<<<<< HEAD
 @AllArgsConstructor
 @NoArgsConstructor
-=======
-
-
-@AllArgsConstructor
-@NoArgsConstructor
-
->>>>>>> cfcfca52c48a4558b2b27fd239ad7cd6a26e6446
 @ToString
 @Builder
 public class Board {
 
 
-<<<<<<< HEAD
-=======
 //BOARD 테이블 컬럼과 매핑되는 필드
 
 //행 번호
->>>>>>> cfcfca52c48a4558b2b27fd239ad7cd6a26e6446
 	private int rnum;
 	
 	// BOARD 테이블 컬럼과 매핑되는 필드
@@ -47,8 +36,5 @@ public class Board {
 	private String boardDelFl;
 	private int memberNo;
 	private int boardCode;
-<<<<<<< HEAD
-=======
 	
->>>>>>> cfcfca52c48a4558b2b27fd239ad7cd6a26e6446
 }
