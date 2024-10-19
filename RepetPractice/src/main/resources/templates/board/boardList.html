@@ -18,8 +18,17 @@
     <th:block th:replace= "~{common/header :: nav}"></th:block>
 
     <section class="board-list">
-      <h1 class="board-name">게시판 이름</h1>
 
+      <div class="board-name">
+        <h4 class="left-title">자유 게시판</h4>
+
+        <div>
+          <i class="fa-solid fa-house" id="log"></i>
+          <i class="fa-solid fa-chevron-right" id="log"></i>
+          <h6 id="log">자유 게시판</h6>
+        </div>
+      </div>
+  
       <div class="list-wrapper">
         <table class="list-table">
           <thead>
@@ -34,37 +43,37 @@
           
           <tbody>
             <!-- 게시글이 존재하지 않을 때 -->
-            <th:block th:if="${#lists.isEmpty(boardList)}">
-              <!-- #lists : 타임리프에서 제공하는 list 기능 제공 객체 -->
+             <th:block th:if="${#lists.isEmpty(boardList)}">
+               <!-- #lists : 타임리프에서 제공하는 list 기능 제공 객체  -->
               <tr>
                 <th colspan="6">게시글이 존재하지 않습니다.</th>
               </tr>
             </th:block>
 
             <!-- 게시글이 존재할 때 -->
-             <th:block>
+             <!-- <th:block>
               <tr>
                 <td>1000</td>
 
                 <td>
-                  <!-- 검색이 아닌 경우 -->
+                   검색이 아닌 경우 
                   <a href="/board/detail">게시글 제목</a>
 
                   
-                   <!-- 댓글 수 -->
-                    <th:block>[0]</th:block>
+                    댓글 수 -->
+                    <!-- <th:block>[0]</th:block>
                 </td>
 
-                <!-- 작성자 -->
-                 <td>닉네임</td>
+                 작성자 -->
+                 <!-- <td>닉네임</td> -->
 
                  <!-- 작성일 -->
-                  <td>2024-10-16</td>
+                  <!-- <td>2024-10-16</td>
 
-                  <!-- 조회수 -->
-                   <td>0</td>
+                조회수 -->
+                   <!-- <td>0</td>
               </tr>
-             </th:block>
+             </th:block> --> 
           </tbody>
             
         </table>
@@ -79,22 +88,7 @@
         <textarea id="summernote" name="content"></textarea>
     </div>
 
-    <script>
-      $(document).ready(function() {
-          // 글쓰기 버튼 클릭 이벤트
-          $('#insertBtn').click(function() {
-              // 에디터 영역을 보이도록 설정
-              $('#editor-area').show();
-              
-              // Summernote 에디터 활성화
-              $('#summernote').summernote({
-                  height: 300, // 에디터 높이 설정
-                  lang: 'ko-KR', // 언어 설정
-                  placeholder: '내용을 입력하세요...'
-              });
-          });
-      });
-  </script>
+   
 
     </section>
 

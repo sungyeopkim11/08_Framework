@@ -1,6 +1,24 @@
 .board-name{
-  font-size: 2em;
-  margin: 20px 0;
+  font-size: 30px;
+  margin: 100px 0;
+  background-color: rgb(108, 108, 108);
+}
+
+.left-title {
+  font-size: 24px;
+}
+
+.board-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+#log{
+  display: inline-block;
+  font-size: 16px;
+  padding: 5px;
 }
 
 a{
@@ -14,7 +32,7 @@ a:hover{
 
 .board-list{
   width: 1000px;
-  margin: 50px auto;
+  margin: 230px auto;
 }
 
 .board-title{
@@ -33,7 +51,7 @@ a:hover{
   border-collapse: collapse;
 }
 
-.list-table > thead { background-color: #d89c41; color: white;}
+.list-table > thead {background-color: rgb(207, 207, 207); color: rgb(0, 0, 0);}
 
 .list-table tr {
   height: 60px;
