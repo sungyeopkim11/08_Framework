@@ -21,6 +21,51 @@
   padding: 5px;
 }
 
+#board-search {
+  text-align: center;
+  width: 500px;
+  height: 30px;
+  margin-left: auto;
+  margin-bottom: 3px;
+
+  display: flex;
+  justify-content: right;
+  
+}
+
+#board-search * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  
+  
+}
+
+#board-search select{
+  width: 100px;
+}
+
+#board-search input{
+  flex-grow: 1;
+  margin: 0 10px;
+  padding-left: 10px;
+}  
+
+#board-search button{
+  
+  width: 80px;
+
+  font-weight: bold;
+  background-color: #455ba8;
+  border: none;
+  color: white;
+
+  cursor: pointer;
+  border-radius: 15px;
+  
+
+}
+
 a{
   text-decoration: none;
   color: black;
@@ -100,4 +145,31 @@ a:hover{
 #insertBtn:hover{
   background-color: #7b1fa2;
   opacity: 1;
+}
+
+.pagination{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.pagination li{
+  width: 20px;
+  margin: 0 5px;
+  text-align: center;
+}
+
+.pagination a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.current{
+  font-weight: bold;
+  background-color: #455ba8;
+  border-radius: 50%;
+  color: white !important;
+  letter-spacing: 0 !important;
 }
