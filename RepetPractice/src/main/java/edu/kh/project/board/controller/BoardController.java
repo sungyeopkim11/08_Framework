@@ -36,7 +36,10 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 	
-
+@GetMapping("reportPopup")
+public String pop() {
+	return "board/reportPopup";
+}
 
 
 

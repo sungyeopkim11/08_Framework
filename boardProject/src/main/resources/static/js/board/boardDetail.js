@@ -151,3 +151,5 @@ goToListBtn.addEventListener("click", () => {
   // (검색 X) ?limit=10&key=t&query=111
 });
 
+
+

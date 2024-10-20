@@ -79,7 +79,9 @@ textarea {
     font-size: 14px;
     resize: none;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
+
 
 /* 팝업 푸터 및 신고 버튼 */
 .popup-footer {
