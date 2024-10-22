@@ -8,7 +8,7 @@
     <th:block th:replace="~{common/common}"></th:block>
 
     <link rel="stylesheet" href="/css/board/boardDetail-style.css">
-    <link rel="stylesheet" href="/css/board/comment-style.css">
+    <link rel="stylesheet" href="/css/board/comment.css">
     
 
 </head>
@@ -63,46 +63,127 @@
                 <img src="/images/logo.jpg">
              </th:block>
 
-             <div class="board-content">내용</div>
+             <div class="board-content">
+- 예를 들어 점 추정 조건 4가지는 ADsP 4지 선다 항목으로 언제든지 나올 수 있기 때문에 
+ "불효일충"으로 암기를 하고 있어야 합니다.
+
+ - 불효일충을 통해 올바르지 않은 항목을 골라내는 것은 너무 쉬운 일입니다.
+                
+                ​
+                
+ 4. 계산 문제 풀이 대비 공부 - 수제비 ADsP 책의 "개념 박살내기"를 통해서 대비하기
+                [출처] 2023 수제비 ADsP 초 단기 합격 방법 (수제비- IT 커뮤니티 (정보처리기사,빅데이터분석기사, ADsP등)) | 
+                작성자 수제비쌤
+            </div>
 
              <!-- 좋아요 하트 -->
              <span class="like-area">
-                <i class="fa-regular fa-thumbs-up"></i>
+                <i class="fa-regular fa-thumbs-up" id="boardLike"></i>
 
                 <!-- 좋아요 개수 -->
                 <span>0</span>
              </span>
 
              <span class="report-area">
-                <i class="fa-regular fa-face-angry" id="report"></i>
+                <i class="fa-regular fa-bell" id="report"></i>
                 <button id="reportBtn">신고하기</button>
 
              </span>
 
         </section>
 
+
         <!-- 댓글 영역 -->
-         <!-- <th:block th:replace="~{board/comment}"></th:block> -->
+         <th:block th:replace="~{board/comment}"></th:block>
 
 
          <!-- 베스트 게시글 -->
           <div class="best-board-area">
-            <h2>추천 게시물</h2>
+            <h2 class="best-header-title">추천 게시물</h2>
 
-            <div class="best-board-list">
-                <!-- 제목 -->
-                <a href="#">게시글 제목</a>
-
-                <!-- 댓글수 -->
-                 <th:block>[0]</th:block>
+            <table class="best-board-list">
                 
-                <!-- 작성지 -->
-                 <td>닉네임</td>
+                <tbody>
+                  <th:block>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <!-- 제목 -->
+                            <a href="#">게시글 제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</a>
+            
+                            <!-- 댓글수 -->
+                             <th:block>[0]</th:block>
+                           </td>
+                            
+                            <!-- 작성지 -->
+                             <td>닉네임</td>
+            
+                            <!-- 작성일 -->
+                            <td>2024.10.18</td>
+                        </tr>
+                 </th:block>
+             </tbody>
 
-                <!-- 작성일 -->
-                <td>2024-10-18</td>
-
-            </div>
+            </table>
           </div>
     
     
