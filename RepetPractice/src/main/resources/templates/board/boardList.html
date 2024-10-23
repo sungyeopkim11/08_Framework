@@ -8,9 +8,6 @@
   <th:block th:replace= "~{common/common}"></th:block>
 
   <link rel="stylesheet" href="/css/board/boardList.css">
-  <link rel="stylesheet" href="/summerNote/summernote-lite.css">
-  <script src="/summerNote/summernote-lite.js"></script>
-  <script src="/summerNote/summernote-ko-KR.js"></script>
 
 </head>
 <body>
@@ -66,175 +63,31 @@
             </th:block>
 
             <!-- 게시글이 존재할 때 -->
-              <th:block>
-              <tr>
-                <td>1000</td>
+              <th:block th:unless="${#lists.isEmpty(boardList)}">
+              <tr th:each="board : ${boardList}" th:object="${board}">
+                <td th:text="*{rnum}">1000</td>
 
                 <td>
                    <!-- 검색이 아닌 경우 -->
-                  <a href="/board/detail">게시글 제목</a>
+                  <a th:href="@{/board/{boardCode}/{boardNo}/(boardCode=4, boardNo=*{boardNo})}"
+
+                    th:text="*{boardTitle}">게시글 제목</a>
 
                   
                   <!--  댓글 수 -->
-                     <th:block>[0]</th:block>
+                     <th:block th:text="|[*{commentCount}]|">[0]</th:block>
                 </td>
 
                  <!-- 작성자 -->
-                  <td>닉네임</td> 
+                  <td th:text="*{memberNickname}">닉네임</td> 
 
                  <!-- 작성일 -->
-                   <td>2024-10-16</td>
+                   <td th:text="*{boardWriteDate}">2024-10-16</td>
 
                <!-- 조회수 -->
-                    <td>0</td>
+                    <td th:text="*{readCount}">0</td>
               </tr>
-              <tr>
-                <td>1000</td>
-
-                <td>
-                   <!-- 검색이 아닌 경우 -->
-                  <a href="/board/detail">게시글 제목</a>
-
-                  
-                  <!--  댓글 수 -->
-                     <th:block>[0]</th:block>
-                </td>
-
-                 <!-- 작성자 -->
-                  <td>닉네임</td> 
-
-                 <!-- 작성일 -->
-                   <td>2024-10-16</td>
-
-               <!-- 조회수 -->
-                    <td>0</td>
-              </tr>
-              <tr>
-                <td>1000</td>
-
-                <td>
-                   <!-- 검색이 아닌 경우 -->
-                  <a href="/board/detail">게시글 제목</a>
-
-                  
-                  <!--  댓글 수 -->
-                     <th:block>[0]</th:block>
-                </td>
-
-                 <!-- 작성자 -->
-                  <td>닉네임</td> 
-
-                 <!-- 작성일 -->
-                   <td>2024-10-16</td>
-
-               <!-- 조회수 -->
-                    <td>0</td>
-              </tr>
-              <tr>
-                <td>1000</td>
-
-                <td>
-                   <!-- 검색이 아닌 경우 -->
-                  <a href="/board/detail">게시글 제목</a>
-
-                  
-                  <!--  댓글 수 -->
-                     <th:block>[0]</th:block>
-                </td>
-
-                 <!-- 작성자 -->
-                  <td>닉네임</td> 
-
-                 <!-- 작성일 -->
-                   <td>2024-10-16</td>
-
-               <!-- 조회수 -->
-                    <td>0</td>
-              </tr>
-              <tr>
-                <td>1000</td>
-
-                <td>
-                   <!-- 검색이 아닌 경우 -->
-                  <a href="/board/detail">게시글 제목</a>
-
-                  
-                  <!--  댓글 수 -->
-                     <th:block>[0]</th:block>
-                </td>
-
-                 <!-- 작성자 -->
-                  <td>닉네임</td> 
-
-                 <!-- 작성일 -->
-                   <td>2024-10-16</td>
-
-               <!-- 조회수 -->
-                    <td>0</td>
-              </tr>
-              <tr>
-                <td>1000</td>
-
-                <td>
-                   <!-- 검색이 아닌 경우 -->
-                  <a href="/board/detail">게시글 제목</a>
-
-                  
-                  <!--  댓글 수 -->
-                     <th:block>[0]</th:block>
-                </td>
-
-                 <!-- 작성자 -->
-                  <td>닉네임</td> 
-
-                 <!-- 작성일 -->
-                   <td>2024-10-16</td>
-
-               <!-- 조회수 -->
-                    <td>0</td>
-              </tr>
-              <tr>
-                <td>1000</td>
-
-                <td>
-                   <!-- 검색이 아닌 경우 -->
-                  <a href="/board/detail">게시글 제목</a>
-
-                  
-                  <!--  댓글 수 -->
-                     <th:block>[0]</th:block>
-                </td>
-
-                 <!-- 작성자 -->
-                  <td>닉네임</td> 
-
-                 <!-- 작성일 -->
-                   <td>2024-10-16</td>
-
-               <!-- 조회수 -->
-                    <td>0</td>
-              </tr>
-              <tr>
-                <td>1000</td>
-
-                <td>
-                   <!-- 검색이 아닌 경우 -->
-                  <a href="/board/detail">게시글 제목</a>
-
-                  
-                  <!--  댓글 수 -->
-                     <th:block>[0]</th:block>
-                </td>
-
-                 <!-- 작성자 -->
-                  <td>닉네임</td> 
-
-                 <!-- 작성일 -->
-                   <td>2024-10-16</td>
-
-               <!-- 조회수 -->
-                    <td>0</td>
-              </tr>
+            
              </th:block>
           </tbody>
             
@@ -244,9 +97,9 @@
       <div class="btn-area">
         
         <!-- 게시글이 있을 때만 페이지네이션이 보이게 할 예정 -->
-        <div class="pagination-area">
+        <div class="pagination-area" th:unless="${#lists.isEmpty(boardList)}">
           
-          <ul class="pagination">
+          <ul class="pagination" th:object="${pagination}">
             
             <!-- 첫 페이지로 이동 -->
             <li><a href="#">&lt;&lt;</a></li>
@@ -263,27 +116,20 @@
               -> startPage부터 endPage까지 1씩 증가하는 숫자를 가진
               List를 만들어서 반환
               -->
-              <th:block>
+              <th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
 
-                <div class="current-area">
-                  <li>
-                    <a class="current">1</a>
-                    <a class="current">2</a>
-                    <a class="current">3</a>
-                    <a class="current">4</a>
-                    <a class="current">5</a>
-                    <a class="current">6</a>
-                    <a class="current">7</a>
-                    <a class="current">8</a>
-                    <a class="current">9</a>
-                    <a class="current">10</a>
+                
+                  <li th:if="${i} == *{currentPage}">
+                    <a class="current" th:text="${i}">1</a>
+                   
                   </li>
-                </div>
+                
                 
                 <!-- 보고있지 않은 페이지 -->                    
-                <!-- <li> 
-                  <a href="#"></a> </li>
-                </th:block> -->
+                <li th:unless="${i} == *{currentPage}"> 
+                  <a href="#" th:text="${i}"></a> 
+                </li>
+                </th:block> 
                 
                 <!-- 다음 목록 시작 번호로 이동 -->
                 <li><a href="#">&gt;</a></li>
