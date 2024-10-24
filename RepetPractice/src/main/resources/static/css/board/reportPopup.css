@@ -1,7 +1,7 @@
 /* 팝업 컨테이너 */
 .popup-container {
-    width: 400px;
-    margin: 50px auto;
+    width: 450px;
+    margin: 5px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 10px;

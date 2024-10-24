@@ -37,4 +37,25 @@ public class Board {
 	private int memberNo;
 	private int boardCode;
 	
+
+	// MEMBER 테이블 JOIN 컬럼
+	private String memberNickname;
+	
+	// 목록 조회 시 댓글/좋아요 수 상관 쿼리 결과
+	private int commentCount;
+	private int likeCount;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
