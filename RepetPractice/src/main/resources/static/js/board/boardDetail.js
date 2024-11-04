@@ -6,6 +6,6 @@ reportBtn.addEventListener('click', function() {
     window.open(
         '/board/reportPopup', // 팝업 창에 로드할 페이지
         '신고하기',          // 팝업 창 이름
-        'width=500,height=600,scrollbars=yes' // 창 크기 및 옵션
+        'width=500,height=600' // 창 크기 및 옵션
     );
 });

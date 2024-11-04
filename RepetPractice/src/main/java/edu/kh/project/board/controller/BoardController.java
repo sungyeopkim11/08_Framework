@@ -1,9 +1,6 @@
 package edu.kh.project.board.controller;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
->>>>>>> 68245c4d9801f48ca384be814054882a47d4a80e
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -29,7 +26,6 @@ public class BoardController {
 
 	private final BoardService service;
 	
-<<<<<<< HEAD
 	/** 게시글 목록 조회
 	 * @param boardCode : 게시판 번호
 	 * @param cpage : 현재 조회하려는 목록의 페이지 번호 (필수 아님, 없으면 1) 
@@ -37,16 +33,12 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("{boardCode}")
-=======
-	@GetMapping("{boardCode:[0-9]+}")
->>>>>>> 68245c4d9801f48ca384be814054882a47d4a80e
 	public String selectBoardList(
 			@PathVariable("boardCode") int boardCode,
 			@RequestParam(value = "cpage", required = false, defaultValue = "1") int cpage,
 			Model model
 			) {
 		
-<<<<<<< HEAD
 		// 서비스 호출 후 결과 반환 받기
 	  // - 목록 조회인데 Map으로 반환 받는 이유?
 		//  -> 서비스에서 여러 결과를 만들어 내야되는데
@@ -54,9 +46,7 @@ public class BoardController {
 		//     Map으로 묶어서 반환 받을 예정
 		Map<String, Object> map = service.selectBoardList(boardCode, cpage);
 		
-=======
 		
-		Map<String, Object> map = service.selectBoardList(boardCode, cpage);
 		
 		// Map에 묶인 값 풀어놓기
 		List<Board> boardList = (List<Board>)map.get("boardList");
@@ -71,7 +61,6 @@ public class BoardController {
 		
 		log.debug("Pagination: " + pagination.toString());
 		
->>>>>>> 68245c4d9801f48ca384be814054882a47d4a80e
 		return "board/boardList";
 	}
 	

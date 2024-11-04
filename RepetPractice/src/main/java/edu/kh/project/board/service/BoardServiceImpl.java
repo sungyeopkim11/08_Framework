@@ -1,9 +1,6 @@
 package edu.kh.project.board.service;
 
-<<<<<<< HEAD
-=======
 import java.util.HashMap;
->>>>>>> 68245c4d9801f48ca384be814054882a47d4a80e
 import java.util.List;
 import java.util.Map;
 
@@ -21,15 +18,11 @@ public class BoardServiceImpl implements BoardService {
 	
 	private final BoardMapper mapper;
 
-<<<<<<< HEAD
-=======
 	
->>>>>>> 68245c4d9801f48ca384be814054882a47d4a80e
 	// 게시글 목록 조회
 	@Override
 	public Map<String, Object> selectBoardList(int boardCode, int cpage) {
 		
-<<<<<<< HEAD
 		// 1. boardCode가 일치하는 게시글의 전체 개수 조회
 		//    (조건 : 삭제되지 않은 글만 카운트!)
 		int result = mapper.getListCount(boardCode);
@@ -62,34 +55,14 @@ public class BoardServiceImpl implements BoardService {
 		List<Board> boardList = mapper.selectBoardList(boardCode, rowBounds);
 		
 		
-		
-		return null;
-	}
-=======
-		// 1) boardCode가 일치하는 게시글의 전체 개수 조회
-		int result = mapper.getListCount(boardCode);
-		
-		// 2) cpage를 이용해서 조회될 목록 페이지, 출력할 
-		//   페이지네이션의 값을 계산할 pagination 객체 생성
-		Pagination pagination = new Pagination(cpage, result);
-		
-		// 3) DB에서 cpage에 해당하는 행을 조회
-		int recodeSize = pagination.getrecordSize();
-		int offset     = (cpage -1) * recodeSize;
-		
-		RowBounds rowBounds = new RowBounds(offset, recodeSize);
-		
-		List<Board> boardList = mapper.selectBoardList(boardCode, rowBounds);
-		
-		// 4) 목록 조회 결과 + Pagination 객체를 Map으로 묶어서 반환
-		Map<String, Object> map = Map.of("boardList", boardList, "pagination", pagination);
-		
-		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardList", boardList);
+		map.put("pagination", pagination);
 		
 		
 		return map;
 	}
-	
+		
 
 
 
@@ -108,5 +81,4 @@ public class BoardServiceImpl implements BoardService {
 
 
 
->>>>>>> 68245c4d9801f48ca384be814054882a47d4a80e
 }

@@ -24,7 +24,7 @@ const updatePreview = (file, order) => {
   const maxSize = 1024 * 1024 * 10; // 1MB를 byte 단위로 작성
 
   if(file.size > maxSize){ // 파일 크기 초과 시
-    alert("10MB 이하의 이미자만 선택해 주세요");
+    alert("10MB 이하의 이미지만 선택해 주세요");
 
     // 미리보기는 안되도
     // 크기가 초과된 파일이 선택되어 있음

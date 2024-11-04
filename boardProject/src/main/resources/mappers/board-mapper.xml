@@ -176,7 +176,7 @@
    </select>
    
    
-   <!-- 게시글 1 증가 -->
+   <!-- 조회수 1 증가 -->
    <update id="updateReadCount">
    		UPDATE "BOARD" 
    		SET READ_COUNT = READ_COUNT + 1

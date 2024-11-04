@@ -1,4 +1,7 @@
-
+* {
+    padding: 0;
+    margin: 0;
+}
 
 .board-name{
 	font-size : 2em;
