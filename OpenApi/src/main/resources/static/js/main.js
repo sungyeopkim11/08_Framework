@@ -82,16 +82,16 @@ const getAirQuality =  async (cityName) => {
 
 
     // 이모지/등급 배열
-    const gredeEmoji = ['😄', '🙂', '😷', '🤢'];
-    const gredeText = ['좋음', '보통', '나쁨', '매우나쁨'];
+    const gradeEmoji = ['😄', '🙂', '😷', '🤢'];
+    const gradeText = ['좋음', '보통', '나쁨', '매우나쁨'];
 
 
-    pm10Grade.innerText = gredeEmoji[item.pm10Grade - 1];
-    pm10GradeText.innerText = gredeText[item.pm10Grade - 1];
+    pm10Grade.innerText = gradeEmoji[item.pm10Grade - 1];
+    pm10GradeText.innerText = gradeText[item.pm10Grade - 1];
     pm10Value.innerText = `미세먼지 농도 : ${item['pm10Value']} ㎍/㎥`;
     
-    pm25Grade.innerText = gredeEmoji[item.pm10Grade - 1];
-    pm25GradeText.innerText = gredeText[item.pm10Grade - 1];
+    pm25Grade.innerText = gradeEmoji[item.pm10Grade - 1];
+    pm25GradeText.innerText = gradeText[item.pm10Grade - 1];
     pm25Value.innerText = `초미세먼지 농도 : ${item['pm10Value']} ㎍/㎥`;
 
 
@@ -114,3 +114,16 @@ document.querySelector("#selectBtn").addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
   getAirQuality("서울");
 });
+
+
+// --------------------------------------------------------------------
+
+// Java 부분 select 변경 후 조회 클릭 시에 대한 동작
+document.querySelector("#selectBtn2").addEventListener("click", () => {
+
+  // 선택된 도시명
+  const cityName = document.querySelector("cityName2").value;
+
+  location.href = location.pathname + "?cityName" + cityName;
+
+})
