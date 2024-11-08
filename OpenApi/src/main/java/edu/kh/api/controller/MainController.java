@@ -1,13 +1,19 @@
 package edu.kh.api.controller;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,8 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -41,65 +45,62 @@ public class MainController {
 	public String maonPage(
 			@RequestParam(name = "cityName", required = false, defaultValue = "서울") String cityName,
 			Model model
-			) {
+			) throws IOException, URISyntaxException, JSONException {
 		
 		/* Server(Java)에서 공공데이터 요청하기 */
 		
-		// 시도별 미세먼지 농도 조회 요청 주소
-		String url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty";
+		StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty"); /* URL */
+    urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + encodingServiceKey); /* Service Key */
+
+    /* 시도 이름(전국, 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종) */
+    urlBuilder.append("&" + URLEncoder.encode("sidoName", "UTF-8") + "=" + URLEncoder.encode(cityName, "UTF-8"));
+
+    /* xml 또는 json */
+    urlBuilder.append("&" + URLEncoder.encode("returnType", "UTF-8") + "=" + URLEncoder.encode("json", "UTF-8"));
+    
+    /* 한 페이지 결과 수 */
+    urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
+
+    /* 페이지번호 */
+    urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
+    
+    /* 버전별 상세 결과 참고 */
+    urlBuilder.append("&" + URLEncoder.encode("ver", "UTF-8") + "=" + URLEncoder.encode("1.0", "UTF-8")); 
+
+
+    /* 제공 샘플과 다른 부분 */
+    URI uri = new URI(urlBuilder.toString());
+    URL url = uri.toURL();
+
+
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    conn.setRequestMethod("GET");
+    
+    /* 제공 샘플과 다른 부분 */
+    // 샘플 코드 수행 시 응답 데이터에서 한글이 깨지는 문제 발생
+    // -> charset=UTF-8을 추가하여 응답 데이터의 문자 인코딩을 UTF-8로 지정
+    // ---> 한글 깨짐 해결
+    conn.setRequestProperty("Content-type", "application/json; charset=UTF-8");
+    System.out.println("Response code: " + conn.getResponseCode());
+    BufferedReader rd;
+    if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+      rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    } else {
+      rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+    }
+    StringBuilder sb = new StringBuilder();
+    String line;
+    while ((line = rd.readLine()) != null) {
+      sb.append(line);
+    }
+    rd.close();
+    conn.disconnect();
+
+    // 응답 받은 데이터(JSON)를 로그에 출력
+    String response = sb.toString();
+    log.debug(response);
 		
-		// 파라미터 : serviceKey(필드), sidoName(매개변수), returnType, numOfRows, pageNo, ver
 		
-		String returnType = "json";
-		int    numOfRows = 1;
-		int    pageNo = 1;
-		String ver = "1.0";
-		
-		// UriComponentsBuilder  
-		// - Spring에서 제공하는 URI 관련 객체
-		// - 주소 + 쿼리스트링 조합을 쉽게 할 수 있는 기능을 제공함
-		// - 자동으로 URL 인코딩 처리하여 안전하게 요청 가능 
-		UriComponentsBuilder uriBuilder
-			= UriComponentsBuilder.fromHttpUrl(url)
-				.queryParam("serviceKey", "{serviceKey}")
-				.queryParam("sidoName", cityName)
-				.queryParam("returnType", returnType)
-				.queryParam("numOfRows", numOfRows)
-				.queryParam("pageNo", pageNo)
-				.queryParam("ver", ver);
-		
-		// --> 자동으로 url + 쿼리스트링이 합쳐진 주소가 생성
-				
-		String uriString = uriBuilder.build().toUriString();
-		log.debug("uriString : {}", uriString);
-		
-		uriString = uriString.replace("{serviceKey}", decodingServiceKey);
-		log.debug("uriString : {}", uriString);
-		
-		// 요청 헤
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Content-Type", "application/json");
-		
-		// HTTP 요청 헤더와 바디를 묶어주는 객체
-		HttpEntity<String> entity = new HttpEntity<>(headers);
-		
-		// RestTemplate 
-		// - Spring 제공 HTTP 클라이언트
-		// - Spring에서 외부로 HTTP 요청을 보내고 응답을 받는 역할의 객체
-		RestTemplate restTemplate = new RestTemplate();
-		
-		try {
-			
-			ResponseEntity<String> response
-				= restTemplate.exchange(
-						uriString, // 요청 주소 + 쿼리스트링(여시거 한번 더 URL 인코딩 수행)
-						HttpMethod.GET, // GET 방식 요청
-						entity, // HTTP 헤더, 바디
-						String.class); // 응답 데이터의 형태
-			
-			String responseBody = response.getBody();
-			
-			log.debug("responseBody : {}", responseBody);
 			
 			// Jackson 라이브러리
 			// -> Java에서 JSON을 다룰 수 있게 해주는 라이브러리
@@ -112,7 +113,7 @@ public class MainController {
 			// JSON을 쉽게 다루거나 변환할 수 있는 객체
 			ObjectMapper objectMapper = new ObjectMapper();
 			
-			JsonNode rootNode = objectMapper.readTree(responseBody);
+			JsonNode rootNode = objectMapper.readTree(response);
 			
 			// json 데이터 중 items 찾기
 			JsonNode itemNode = rootNode.path("response").path("body").path("items");
@@ -141,9 +142,7 @@ public class MainController {
 			model.addAttribute("pm25GradeText", gradeText[item.getPm25Grade() -1 ]);
 			model.addAttribute("pm25Value", String.format("초미세먼지 농도 %s ㎍/㎥", item.getPm25Value()));
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		
 		
 		// classPath:/templates/main.html -> forward 
