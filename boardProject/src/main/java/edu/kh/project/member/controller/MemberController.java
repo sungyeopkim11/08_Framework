@@ -18,7 +18,6 @@ import edu.kh.project.member.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @SessionAttributes({"loginMember"})
 @Controller // 요청/응답 제어 역할 명시 + Bean 등록(IOC) 
@@ -87,7 +86,7 @@ public class MemberController {
 				                     // == 기존에 쿠키가 있으면 덮어씌우고 없어짐
 				
 			} else { // 체크 O
-				cookie.setMaxAge(60 * 60 * 24 * 30); // 30일 초 단위로 작성
+				cookie.setMaxAge(60 * 60 * 24 * 30); // 30일 단위로 작성
 			}
 			
 			// 4. resp 객체에 추가해서 클라이언트에게 전달

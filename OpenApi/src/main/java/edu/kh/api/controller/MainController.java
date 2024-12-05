@@ -167,6 +167,99 @@ public class MainController {
 		
 	}
 	
+	
+
+
+			/** 에어코리아 대기오염정보 - 시도별 실시간 측정정보 조회
+
+			* @param location : 지역명(시, 도 이름)
+
+			* @throws IOException
+
+			*/
+
+			@GetMapping("air")
+
+			public String airPollution(@RequestParam("cityName") String cityName) throws IOException, URISyntaxException{
+
+			// API 개인 인증키
+
+			String serviceKey = "개인 인코딩된 인증키를 작성하세요(문제 원인 X)";
+
+			 
+
+			String requestUrl = "";
+
+			 
+
+			StringBuilder urlBuilder = new StringBuilder(requestUrl);
+
+			urlBuilder.append("&" + URLEncoder.encode("sidoName","UTF-8") + "=" + URLEncoder.encode(cityName, "UTF-8"));
+
+			urlBuilder.append("&" + URLEncoder.encode("returnType","UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8"));
+
+			 
+
+			// 공공데이터 요청 및 응답
+
+			URI uri = new URI(urlBuilder.toString());
+
+			URL url = uri.toURL();
+
+			 
+
+			 
+
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			conn.setRequestMethod("GET");
+
+			conn.setRequestProperty("Content-type", "application/json");
+
+			 
+
+			BufferedReader rd;
+
+			if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			} else {
+
+			rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+
+			}
+
+			 
+
+			StringBuilder sb = new StringBuilder();
+
+			String line;
+
+			while ((line = rd.readLine()) != null) {
+
+			sb.append(line);
+
+			}
+
+			 
+
+			rd.close();
+
+			conn.disconnect();
+
+			 
+
+			// 응답 받은 데이터(JSON)를 로그에 출력
+
+			log.debug(sb.toString());
+
+			 
+
+			return "air";
+
+			}
+	
 
 
 
